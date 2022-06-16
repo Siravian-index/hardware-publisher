@@ -22,6 +22,7 @@ public class CreateProviderRoute {
                         .flatMap(providerDTO -> useCase.apply(providerDTO)
                                 .flatMap(providerDTO1 -> ServerResponse.status(HttpStatus.CREATED)
                                         .contentType(MediaType.APPLICATION_JSON)
-                                        .bodyValue(providerDTO1))));
+                                        .bodyValue(providerDTO1)))
+                        .onErrorResume(e -> ServerResponse.status(HttpStatus.BAD_REQUEST).build()));
     }
 }
