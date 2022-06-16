@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitProductConfig {
+public class RabbitProviderConfig {
     public final static String EXCHANGE = "hardware";
 
-//    product
-    public final static String CREATE_PRODUCT_QUEUE = "action.create.product";
-    public final static String CREATE_PRODUCT_ROUTING_KEY = "publish.product.create";
 
+    //    Provider
+    public final static String CREATE_PROVIDER_QUEUE = "action.create.provider";
+    public final static String CREATE_PROVIDER_ROUTING_KEY = "publish.provider.create";
 
 
     @Bean
@@ -23,14 +23,12 @@ public class RabbitProductConfig {
     }
 
     @Bean
-    public Queue getProductQueue() {
-        return new Queue(CREATE_PRODUCT_QUEUE);
+    public Queue getProviderQueue() {
+        return new Queue(CREATE_PROVIDER_QUEUE);
     }
 
     @Bean
-    public Binding bindToCreateProduct() {
-        return BindingBuilder.bind(getProductQueue()).to(getTopicExchange()).with(CREATE_PRODUCT_ROUTING_KEY);
+    public Binding bindToCreateProvider() {
+        return BindingBuilder.bind(getProviderQueue()).to(getTopicExchange()).with(CREATE_PROVIDER_ROUTING_KEY);
     }
-
-
 }
