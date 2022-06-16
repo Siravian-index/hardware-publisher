@@ -7,7 +7,6 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class RabbitProductConfig {
     public final static String EXCHANGE = "hardware";
 
@@ -17,17 +16,14 @@ public class RabbitProductConfig {
 
 
 
-    @Bean
     public TopicExchange getTopicExchange() {
         return new TopicExchange(EXCHANGE);
     }
 
-    @Bean
     public Queue getProductQueue() {
         return new Queue(CREATE_PRODUCT_QUEUE);
     }
 
-    @Bean
     public Binding bindToCreateProduct() {
         return BindingBuilder.bind(getProductQueue()).to(getTopicExchange()).with(CREATE_PRODUCT_ROUTING_KEY);
     }

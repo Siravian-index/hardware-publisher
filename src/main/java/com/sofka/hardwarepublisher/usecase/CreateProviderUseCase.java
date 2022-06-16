@@ -4,7 +4,6 @@ import com.sofka.hardwarepublisher.domain.Provider;
 import com.sofka.hardwarepublisher.infra.dto.ProviderDTO;
 import com.sofka.hardwarepublisher.infra.mapper.ProviderMapper;
 import com.sofka.hardwarepublisher.infra.repository.ProviderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +25,7 @@ public class CreateProviderUseCase {
         Provider provider = mapper.fromDTOToDomain(providerDTO);
         provider.setAssociationDate(LocalDate.now().toString());
 
-        return repository.save(mapper.fromDomainToDocument(provider)).map(document -> mapper.fromDocumentToDTO(document));
+        return repository.save(mapper.fromDomainToDocument(provider)).map(mapper::fromDocumentToDTO);
 
     }
 }
